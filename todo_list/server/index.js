@@ -1,12 +1,26 @@
-import express from 'express';
-import Connection from './database/db.js'; // Ensure the correct relative path
+import express from "express";
+import connectDB from "./database/db.js";
+import mongoose from "mongoose";
+import router from "./routes/TodoRouters.js "
 
 const app = express();
+const PORT = 5000;
 
-// Call the Connection function to connect to the database
-Connection();
+//db connection
+connectDB();
 
-const PORT = 8000;
+// Middleware
+app.use(express.json());
+
+//api endpoints
+app.use("/api/save", router);
+
+
+app.get("/", (req, res) => {
+  res.send("Hello, World!");
+});
+
+// Start the server
 app.listen(PORT, () => {
-    console.log(`Server is running successfully on PORT ${PORT}`);
+  console.log(`Server is running successfully on PORT ${PORT}`);
 });
